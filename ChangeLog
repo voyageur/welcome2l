@@ -1,6 +1,13 @@
 WELCOME2L - CHANGES HISTORY
 ===========================
 
+v3.04-gentoo 30-OKT-02
+----------------------
+
+- Added a lot of patches for the Gentoo Linux ebuild. Most
+  patches are taken from the Debian package.
+
+
 v3.04 28-JUN-99
 ---------------
 

@@ -1,7 +1,6 @@
 SHELL=/bin/sh
 CC = gcc
-CFLAGS = -Wall -O2 -fno-strength-reduce #-pedantic 
-DESTDIR = /usr/local
+DESTDIR = /usr
 INSTALL_BINPATH = $(DESTDIR)/bin
 INSTALL_MANPATH = $(DESTDIR)/man
 PROGNAME = Welcome2L
@@ -12,13 +11,11 @@ RPM_RELEASE = 1
 RPM_BUILDPATH = /usr/src/redhat
 #RPM_ICONNAME = 
 
-
 $(PROGNAME): main.o ansi.o 	     
 	$(CC) $(CFLAGS) -v *.o -o $(PROGNAME)
-	strip ./$(PROGNAME)	
 
 install : 
-	/usr/bin/install -s -m 755 $(PROGNAME) $(INSTALL_BINPATH)
+	/usr/bin/install -m 755 $(PROGNAME) $(INSTALL_BINPATH)
 	/usr/bin/install -m 644 $(PROGNAME).1 $(INSTALL_MANPATH)/man1
 	ln -fs $(PROGNAME) $(INSTALL_BINPATH)/$(PROGNAME_LNK)
 	ln -fs $(PROGNAME).1 $(INSTALL_MANPATH)/man1/$(PROGNAME_LNK).1
