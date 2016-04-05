@@ -1,8 +1,8 @@
 .rn '' }`
-''' $RCSfile$$Revision$$Date$
-'''
-''' $Log$
-'''
+.\" $RCSfile$$Revision$$Date$
+.\"
+.\" $Log$
+.\"
 .de Sh
 .br
 .if t .Sp
@@ -31,12 +31,12 @@
 
 .fi
 ..
-'''
-'''
-'''     Set up \*(-- to give an unbreakable dash;
-'''     string Tr holds user defined translation string.
-'''     Bell System Logo is used as a dummy character.
-'''
+.\"
+.\"
+.\"     Set up \*(-- to give an unbreakable dash;
+.\"     string Tr holds user defined translation string.
+.\"     Bell System Logo is used as a dummy character.
+.\"
 .tr \(*W-|\(bv\*(Tr
 .ie n \{\
 .ds -- \(*W-
@@ -45,10 +45,10 @@
 .if (\n(.H=4u)&(1m=20u) .ds -- \(*W\h'-12u'\(*W\h'-8u'-\" diablo 12 pitch
 .ds L" ""
 .ds R" ""
-'''   \*(M", \*(S", \*(N" and \*(T" are the equivalent of
-'''   \*(L" and \*(R", except that they are used on ".xx" lines,
-'''   such as .IP and .SH, which do another additional levels of
-'''   double-quote interpretation
+.\"   \*(M", \*(S", \*(N" and \*(T" are the equivalent of
+.\"   \*(L" and \*(R", except that they are used on ".xx" lines,
+.\"   such as .IP and .SH, which do another additional levels of
+.\"   double-quote interpretation
 .ds M" """
 .ds S" """
 .ds N" """""
@@ -96,7 +96,7 @@
 .TH WELCOME2L 1 "Welcome2L Version 3.04" "28/Jun/99" "Welcome2L User's Manual"
 .IX Title "WELCOME2L 1"
 .UC
-.IX Name "Welcome2l - Linux ANSI boot logo."
+.IX Name "Welcome2L - Linux ANSI boot logo."
 .if n .hy 0
 .if n .na
 .ds C+ C\v'-.1v'\h'-1p'\s-2+\h'-1p'+\s0\v'.1v'\h'-1p'
@@ -190,11 +190,10 @@
 .\}
 .rm #[ #] #H #V #F C
 .SH "NAME"
-.IX Header "NAME"
-Welcome2l \- Linux ANSI boot logo.
+Welcome2L \- Linux ANSI boot logo.
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
-\fBWelcome2L\fR [ \fB\-scr\fR ] [ \fB\-getty\fR ] [ \fB\-msg\fR ] [ \fB\-cpu\fR ] [ \fB\-lcol\fR ]  [ \fB\-nolf\fR ] [ \fB\-private\fR ]
+\fBWelcome2L\fR [ \fB\-scr\fR ] [ \fB\-getty\fR ] [ \fB\-gettps\fR] [ \fB\-msg\fR ] [ \fB\-cpu\fR ]  [ \fB-scrrand\fR ] [ \fB-xmas\fR ]  [ \fB\-xmasauto\fR ] [ \fB\-lcol\fR ] [ \fB\-nolf\fR ] [ \fB\-private\fR ] [\fB\-notime\fR \]
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
 \fBWelcome2L\fR is a little program that may run at login time to produce a BBS
@@ -209,21 +208,30 @@ it will only produce 80 column ANSI screens.
 .Ip "\fB\-getty\fR" 8
 .IX Item "\fB\-getty\fR"
 Will display more accurate information when launched at boot time.
+.Ip "\fB\-gettps\fR" 8
+.IX Item "\fB\-gettps\fR"
+Like \fB\-getty\fR, but works with \fIgettyps\fR(8) program.
 .Ip "\fB\-nolf\fR" 8
 .IX Item "\fB\-nolf\fR"
 Will not add an empty line to the ansi screen produced.
 .Ip "\fB\-msg\fR" 8
 .IX Item "\fB\-msg\fR"
--msg"text of message\*(R" will show the message given as the distribution info.
+\-msg"text of message\*(R" will show the message given as the distribution info.
 .Ip "\fB\-cpu\fR" 8
 .IX Item "\fB\-cpu\fR"
--cpu"name\*(R" will show the  name given as the \s-1CPU\s0 name.
+\-cpu"name\*(R" will show the  name given as the \s-1CPU\s0 name.
 .Ip "\fB\-scr\fRxx" 8
 .IX Item "\fB\-scr\fRxx"
 Will display screen number xx. 
 .Ip "\fB\-scrrand\fR" 8
 .IX Item "\fB\-scrrand\fR"
 Will display a random screen. 
+.Ip "\fB\-xmas\fR" 8
+.IX Item "\fB\-xmasauto\fR"
+Will display an Xmas screen.
+.Ip "\fB\-xmasauto\fR" 8
+.IX Item "\fB\-xmasauto\fR"
+Will automatically display an Xmas screen in December and January.
 .Ip "\fB\-lcol\fRxx" 8
 .IX Item "\fB\-lcol\fRxx"
 Will change the prompt color to the color number xx. Type Welcome2L \-help to see
@@ -231,107 +239,20 @@ what number is attributed to a color.
 .Ip "\fB\-private\fR" 8
 .IX Item "\fB\-private\fR"
 Display an \*(L"Unauthorized access is prohibited\*(R" line at the bottom 
-of the \s-1ANSI\s0 screen
+of the \s-1ANSI\s0 screen.
+.Ip "\fB\-notime\fR" 8
+.IX Item "\fB\-notime\fR"
+When dispalying date information, do not display time.
+.Ip "\fB\-noblink\fR" 8
+.IX Item "\fB\-noblink\fR"
+Turn blinking off. Useful with \fB\-xmas\fR or \fB\-xmasauto\fR on framebuffer devices,
+which do not support blinking.
 .Ip "\fB\-help\fR" 8
 .IX Item "\fB\-help\fR"
-Will display usage information. 
+Will display usage information.
 .SH "EXAMPLE"
 .IX Header "EXAMPLE"
-\&./Welcome2L \-getty \-msg"RedHat Linux\*(R" \-lcol14
- 
-.SH "INSTALLATION"
-.IX Header "INSTALLATION"
-.Sh "On RedHat systems "
-.IX Subsection "On RedHat systems "
-cd to /etc/rc.d/
-edit rc.local, near the end find these lines (may be not exactly the same) :
-.PP
-.Vb 3
-\&    echo "" > /etc/issue
-\&    echo "Red Hat Linux $R" >> /etc/issue
-\&    echo "Kernel $(uname r) on $a $(uname m)" >> /etc/issue
-.Ve
-comment them out and add this one (change the version numbers to yours) :
-.PP
-.Vb 1
-\&    /usr/local/bin/Welcome2L -msg"Red Hat 5.0 (Hurricane)" > /etc/issue
-.Ve
-.Sh "On Debian systems "
-.IX Subsection "On Debian systems "
-[ From: Gerd Bavendiek <bav@rw.sni.de> ]
-   I put a script in
-   lulu:/etc/rc.boot> ls
-   0setserial  1netenv     2hdparm  3Welcome2L
-    
-    It's contents is just:    
-   #!/bin/sh
-    /usr/local/bin/Welcome2L \-getty \-msg"Debian \s-1GNU/\s0Linux 2.0\*(R" > /etc/issue
-.Sh "On Slackware systems"
-.IX Subsection "On Slackware systems"
-[ From: Joe X <obliteration@hotmail.com> ]
-  add these lines in /etc/rc.d/rc.S
-  /usr/local/bin/Welcome2L > /etc/issue
-  /usr/local/bin/Welcome2L > /etc/issue.net
-.Sh "On \s-1SUSE\s0 5.3 system:"
-.IX Subsection "On \s-1SUSE\s0 5.3 system:"
-[ From: Ronny Ziegler <ronny.ziegler@usa.net> ]
-.PP
-.Vb 1
-\& 1) Put the following script called logo into /sbin/init.d
-.Ve
-.Vb 21
-\& #! /bin/sh
-\& #
-\& #Author: Ronny Ziegler <ronny.ziegler@usa.net>, 1998
-\& #
-\& # /sbin/init.d/logo
-\& #
-\& case "$1" in
-\&     start)
-\&         echo "Starting  logo"
-\&         /usr/local/bin/Welcome2L
-\&         /bin/sleep 1
-\&         ;;
-\&     stop)
-\&         ;;
-\&     reload|restart)
-\&         ;;
-\&     *)
-\&         echo "Usage: $0 {start|stop|reload|restart}"
-\&         exit 1
-\& esac
-\& exit 0
-.Ve
-.Vb 7
-\& 2) cd /sbin/init.d/rc2.d
-\& 3) mv S99zzreached S98zzreached
-\& 4) ln -s ../logo S99logo
-\&    Now the logo will be executed as last before login-prompt
-\& 5) You don't need the old Login-Text any more:
-\&     mv /etc/issue /etc/issue.orig
-\&     touch /etc/issue
-.Ve
-.Sh "On \s-1SUSE\s0 6.0 system:"
-.IX Subsection "On \s-1SUSE\s0 6.0 system:"
-[ From: Ronny Ziegler <ronny.ziegler@usa.net> ]
-.PP
-You should have an error-free bootprocess before installing Welcome2L.
- 
- 1) Add the following in your /sbin/init.d/rc file as 
-    the line before last (that´s the one with exit 0)  
-        /usr/local/bin/Welcome2L
-    where this is the path to your Welcome2L\-executeable
-.PP
-.Vb 4
-\& 1b)Optional: If you dont´t like Welcome2L to overwrite your 
-\&    boot-messages, add 
-\&        echo -e \e\ev\e\ev\e\ev\e\ev\e\ev\e\ev
-\&    (or some more \e\ev ´s) in you rc before starting Welcome2L.  
-.Ve
-.Vb 3
-\& 2) Now you don´t need the old Login-Text any more:
-\&    mv /etc/issue /etc/issue.orig
-\&    touch /etc/issue
+\&/usr/bin/Welcome2L \-getty \-msg"Gentoo Linux\*(R" \-lcol14
 .Ve
 .SH "RESTRICTIONS"
 .IX Header "RESTRICTIONS"

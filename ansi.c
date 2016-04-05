@@ -70,6 +70,7 @@ ANSI_col_convert (int col)
 void
 ANSI_do_color (unsigned char col)
 {
+  extern char NO_BLINK;
   int this_bg, this_fg, this_attr;
   char buf[25];
 
@@ -80,8 +81,12 @@ ANSI_do_color (unsigned char col)
   else
     this_attr = 0;
 
-  if (((col >> 4) & 15) > 7)
+  if (((col >> 4) & 15) > 7) {
+   if (NO_BLINK)
+    this_attr = 1;
+   else
     this_attr = 5;
+  }
 
   if ((this_attr == old_attr) && (this_bg == old_bg) && (this_fg == old_fg))
     return;
@@ -112,9 +117,9 @@ ANSI_do_color (unsigned char col)
 	      sprintf (buf, "\033[1;5");
 
 	  if (this_fg != old_fg)
-	    sprintf (buf, "%s;3%i", buf, this_fg);
+	    sprintf (buf + strlen(buf), ";3%i", this_fg);
 	  if (this_bg != old_bg)
-	    sprintf (buf, "%s;4%i", buf, this_bg);
+	    sprintf (buf + strlen(buf), ";4%i", this_bg);
 	  strcat (buf, "m");
 	}
       else
@@ -140,14 +145,15 @@ ANSI_do_char (unsigned char c)
     case 0x0F:
       c = 14;
     }
-  sprintf (WSCREEN, "%s%c", WSCREEN, c);
+  const char buf[] = { c, '\0' };
+  strcat (WSCREEN, buf);
 }
 
 
 void
 ANSI_pos (int x, int y)
 {
-  sprintf (WSCREEN, "%s\033[%i;%iH", WSCREEN, y, x);
+  sprintf (WSCREEN + strlen(WSCREEN), "\033[%i;%iH", y, x);
 }
 
 

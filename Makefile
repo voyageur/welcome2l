@@ -1,6 +1,6 @@
 SHELL=/bin/sh
 CC = gcc
-CFLAGS = -Wall -O2 -fno-strength-reduce #-pedantic 
+CFLAGS += -Wall -fno-strength-reduce #-pedantic
 DESTDIR = /usr/local
 INSTALL_BINPATH = $(DESTDIR)/bin
 INSTALL_MANPATH = $(DESTDIR)/man
@@ -11,14 +11,15 @@ VERSION_DATE = 1999
 RPM_RELEASE = 1
 RPM_BUILDPATH = /usr/src/redhat
 #RPM_ICONNAME = 
+STRIP = strip
 
 
 $(PROGNAME): main.o ansi.o 	     
-	$(CC) $(CFLAGS) -v *.o -o $(PROGNAME)
-	strip ./$(PROGNAME)	
+	$(CC) $(LDFLAGS) -v *.o -o $(PROGNAME)
+	$(STRIP) ./$(PROGNAME)
 
 install : 
-	/usr/bin/install -s -m 755 $(PROGNAME) $(INSTALL_BINPATH)
+	/usr/bin/install -m 755 $(PROGNAME) $(INSTALL_BINPATH)
 	/usr/bin/install -m 644 $(PROGNAME).1 $(INSTALL_MANPATH)/man1
 	ln -fs $(PROGNAME) $(INSTALL_BINPATH)/$(PROGNAME_LNK)
 	ln -fs $(PROGNAME).1 $(INSTALL_MANPATH)/man1/$(PROGNAME_LNK).1
@@ -49,7 +50,7 @@ version.h : FORCE
 	@echo "#define COMPILE_TIME \"`date +%T`\"" >> version.h
 	@echo "#define COMPILE_BY \"`whoami`\"" >> version.h
 	@echo "#define COMPILE_HOST \"`hostname`\"" >> version.h
-	@echo "#define CC_VERSION \"`$(CC) -v 2>&1 | tail -1`\"">>version.h
+	@echo "#define CC_VERSION \"`$(CC) -v 2>&1 | tail -n 1`\"">>version.h
 	@echo "#define CODE_LINES `cat *.c *.h | grep -ch -e \"[[:alpha:]|[:punct:]]\"`">>version.h
 
 FORCE:	
