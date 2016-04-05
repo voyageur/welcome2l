@@ -1,3 +1,10 @@
+# Build output
+Welcome2L
+version.h
+
+# Temporary files
+.*.swp
+
 # Object files
 *.o
 *.ko
