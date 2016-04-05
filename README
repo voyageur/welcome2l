@@ -1,0 +1,51 @@
+WELCOME2L - Welcome to Linux, ANSI login logo for Linux
+==========================================================
+
+
+All the installation process is detailled in the INSTALL file.
+Please take a look at the "ChangeLog" to check the latest
+fixes/new features.
+
+You can reach me at : 
+	
+		    <jm@littleigloo.org>
+
+You can get the last Welcome2L version
+( sources or binaries distribution as RPM packages ) at :
+
+		    http://www.littleigloo.org
+
+
+Thanks for using Welcome2L.
+
+Jean-Marc.
+
+
+NOTE:
+=====
+Because "A 'welcome' page has been proven to be an invitation 
+to come your system, thus making it legal to hack into your box." 
+you may want to use the "-private" arg when running Welcome2L
+to display an "Unauthorized access is prohibited" line at the bottom 
+of the ANSI screen. 
+
+License
+=======
+This software is freely distributable under the GNU public license, a
+copy of which you should have received with this software (in a file
+called COPYING). 
+
+
+Description
+===========
+Welcome2L is a little program that may run at login time to produce a BBS
+like ANSI login logo. It's very similar to Linux_Logo. But where Linux_Logo
+intends to be portable, Welcome2L intends to produce the best looking
+ANSI screens by making full usage of PC graphic characters. Therefore
+an architecture able to display those characters (i386, Alpha with TGA adapter,
+... ) is required to use it. And, even if it will work on larger screens,
+it will only produce 80 column ANSI screens. 
+
+
+
+AND NOW IT'S TIME FOR YOU TO READ THE INSTALL FILE ...

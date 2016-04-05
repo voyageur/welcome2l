@@ -1,0 +1,236 @@
+WELCOME2L - Welcome to Linux, ANSI login logo for Linux
+=======================================================
+
+
+NOTE:
+=====
+Because "A 'welcome' page has been proven to be an invitation 
+to come your system, thus making it legal to hack into your box." 
+you may want to use the "-private" arg when running Welcome2L
+to display an "Unauthorized access is prohibited" line at the bottom 
+of the ANSI screen. 
+
+
+
+INSTALLATION
+=============
+
+
+STEP #1 : Building Welcome2L
+----------------------------
+( Only required if you have the source distribution.
+  If you got the binary distribution you can jump to step #2)
+
+
+To build Welcome2L:
+`cd' to the directory containing the package's source code and type:
+% make
+
+This will start the compilation process. Note that gcc may report some
+warnings. Don't worry about them. Only worry if gcc returns an error code.
+
+At this step you can verify that a Welcome2L excutable have been created 
+by typing :
+% ls
+
+You can even launch it by typing :
+% ./Welcome2L
+
+NOTE: running it in a xterm will not give you the real ANSI picture.
+
+
+STEP #2 : Installing Welcome2L
+------------------------------
+
+type :
+% make install
+(This will copy Welcome2L to /usr/local/bin/Welcome2L)
+
+or you can manually copy Welcome2L to /usr/local/bin
+and chmod it 0755 :
+% chmod 0755 Welcome2L
+
+
+STEP #3 : running Welcome2L
+---------------------------
+
+ON REDHAT SYSTEM:
+=================
+The best place to run Welcome2L is IMHO in rc.local :
+- cd to /etc/rc.d/
+- edit rc.local
+- near the end find these lines (may be not exactly the same) :
+    echo "" > /etc/issue
+    echo "Red Hat Linux $R" >> /etc/issue
+    echo "Kernel $(uname -r) on $a $(uname -m)" >> /etc/issue
+- comment them out
+- add this one (change the version numbers to yours) :
+    /usr/local/bin/Welcome2L -msg"Red Hat 5.0 (Hurricane)" -getty> /etc/issue
+- to obtain something like that:
+    #echo "" > /etc/issue
+    #echo "Red Hat Linux $R" >> /etc/issue
+    #echo "Kernel $(uname -r) on $a $(uname -m)" >> /etc/issue
+    /usr/local/bin/Welcome2L -msg"Red Hat 5.0 (Hurricane)" -getty> /etc/issue
+
+
+ON DEBIAN SYSTEM:
+=================
+[ From: Gerd Bavendiek <bav@rw.sni.de> ]
+
+  > I put a script in
+  > lulu:/etc/rc.boot> ls
+  > 0setserial  1netenv     2hdparm  3Welcome2L
+  >  
+  >  It's contents is just
+  >  
+  > #!/bin/sh
+  >  /usr/local/bin/Welcome2L -getty -msg"Debian GNU/Linux 2.0" > /etc/issue
+
+
+ON SLACKWARE SYSTEM:
+=======================
+[ From: Elisa  <entropika@usa.net> ]
+  
+ Well, I'm using Slackare 3.6 and in order to make a custom version of
+ the /etc/issue, I should comment out
+ the following lines in /etc/rc.d/rc.S (not rc.M!):
+
+echo > /etc/issue
+echo Welcome to Linux `/bin/uname -a | /bin/cut -d\  -f3`. >> /etc/issue
+echo >> /etc/issue
+echo "`/bin/uname -a | /bin/cut -d\  -f1,3`." > /etc/motd
+
+At first, I suggest to comment these out... then add the two lines :
+
+ /usr/local/bin/Welcome2L > /etc/issue
+ /usr/local/bin/Welcome2L > /etc/issue.net
+
+
+ON SUSE 6.0 SYSTEM:
+===================
+[ From: Ronny Ziegler <ronny.ziegler@usa.net> ]
+
+>  You should have an error-free bootprocess before installing Welcome2L.
+>
+>   1) Add the following in your /sbin/init.d/rc file as
+>      the line before last (that´s the one with exit 0)
+>          /usr/local/bin/Welcome2L
+>      where this is the path to your Welcome2L-executeable
+>
+>   1b)Optional: If you dont´t like Welcome2L to overwrite your
+>      boot-messages, add
+>          echo -e \\v\\v\\v\\v\\v\\v
+>      (or some more \\v ´s) in you rc before starting Welcome2L.
+>
+>   2) Now you don´t need the old Login-Text any more:
+>      mv /etc/issue /etc/issue.orig
+>      touch /etc/issue
+>
+>  That´s all. Now you can continue playing NetTrek. ;-)
+
+
+ON SUSE 6.1 SYSTEM:
+===================
+[ From: Robert M. Taylor <rmtaylor@bellatlantic.net> ]
+
+> follow the instructions for 6.0 but have Welcome2L overwrite the /etc/issue file as below:
+> /usr/local/bin/Welcome2L -msg"SuSE Linux 6.1" -cpu"Cyrix 6x86MX" > /etc/issue
+
+
+ 
+USING THE -xmasauto OPTION:
+===========================
+[ From Kevin (Barthel) Knerr <ld_barthel@usa.net> ]
+ 
+> No matter which distribution you use, the -xmasauto option is
+> useless if you only run Welcome2L from a boot-time rc file --unless
+> you boot your system every day. What you really want to do is to
+> update /etc/issue daily without rebooting.  Here's how:
+>
+>    1) Edit your boot-time rc file to use Welcome2L as per
+>       the directions for your distribution above. E.g.:
+>
+> /usr/local/bin/welcome2l -xmasauto -getty -msg"Slackware Linux 3.2" -cpu"Cyrix 6x86L" >/etc/issue
+>
+>       Note: The -cpu option is one of my personal modifications to
+>       Welcome2L.
+>
+>    2) Create an entry in root's crontab file to rewrite
+>       /etc/issue every day. E.g.:
+>
+> # Update /etc/issue with Welcome2L (ensures -xmasauto works!)
+> 0 4 * * * exec /usr/local/bin/welcome2l -xmasauto -getty -msg"Slackware Linux 3.2" -cpu"Cyrix 6x86L" >/etc/issue
+>
+>       Note: I update at 4am because I work 3rd shift and login after work.
+>
+> If you haven't worked with (Dillon's) crontab before, do the following:
+>    a) login as or su to root (if you su, cd to root's home first)
+>    b) crontab -l >crontab.ori
+>    c) cp crontab.ori crontab
+>    d) edit crontab, add your new crontab entry, and save
+>    e) crontab crontab
+> This will ensure that you don't lose any default crontab entries from
+> your distribution.
+
+
+OPTIONS:
+========
+-scrxx
+ display the screen number xx
+
+-scrrand
+ display a random screen
+
+-msg"text of message" 
+ show the msg given as the distribution info. 
+
+-lcolxx 
+ change the prompt color to the color number xx
+ (i.e. -lcol14 will give you a yellow prompt)
+ type -help to see what number are attributted to a color
+
+-getty
+ will display more accurate information when launched at boot time
+ in an init script.	 
+
+-cpu"string" 
+ specifies an alternate CPU description
+
+
+Contact
+=======
+You can get the last Welcome2L version, 
+sources and binaries distribution or redhat package at :
+
+	http://www.littleigloo.org
+
+Author can be reached at : 
+
+	jm@littleigloo.org	
+
+Comments/suggestions/contribution/anything are welcome.
+
+
+How to report bugs
+==================
+
+PLEASE check the BUGS file before reporting a bug.
+
+To report a bug, send mail to : jm@littleigloo.org
+
+In the mail remember to include:
+
+* The version of Welcome2L you are using
+
+* Information about your system. For instance:
+
+   - What operating system and version
+
+  And anything else you think is relevant.
+
+* How to reproduce the bug. 
+
+---------------------------------------------------------------------
+WELCOME2L - By Jean-Marc Jacquet <jm@littleigloo.org>, 
+Copyright (c)1998-1999, Little Igloo Org http://www.LittleIgloo.org
+---------------------------------------------------------------------

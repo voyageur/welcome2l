@@ -1,0 +1,22 @@
+Begin3
+Title:		Welcome2L
+Version:	3.04
+Entered-date:	28JUN99
+Description:	Welcome2L is a little program that may run at login time
+		to produce a BBS like ANSI login logo. It's very similar 
+		to Linux_Logo. But where Linux_Logo intends to be portable
+		Welcome2L intends to produce the best looking ANSI screens
+		by making full usage of PC graphic characters. Therefore 
+		an architecture able to display those characters
+		(i386, Alpha with TGA adapter,... ) is required to use it. 
+		And, even if it will work on larger screens,
+		it will only produce 80 column ANSI screens. 
+Keywords:	boot logo ansi
+Author:		jm@littleigloo.org(Jean-Marc JACQUET)
+Maintained-by:	jm@littleigloo.org(Jean-Marc JACQUET)
+Primary-site:	http://www.LittleIgloo.org
+Alternate-site: http://www.LittleIgloo.org
+Original-site:	http://www.LittleIgloo.org
+Platforms:	Linux, i386 and some other platforms. 
+Copying-policy:	GPL
+End

@@ -1,0 +1,193 @@
+WELCOME2L - CHANGES HISTORY
+===========================
+
+v3.04 28-JUN-99
+---------------
+
+- Applied a patch from Joerg Dorchain <dorchain@wirbel.com>
+  to make Welcome2L display right substitution characters
+  with getty_ps-2.0.7j ( Use -gettps argument instead of
+  -getty )
+        
+
+v3.03 02-JUN-99
+---------------
+
+- Added a -scrrand arg to display a screens
+  randomly.
+
+- Added additionnal installation information for SUSE systems
+  in the INSTALL file. [Thanks to Robert M. Taylor]
+  
+
+v3.02 26-MAY-99
+---------------
+
+- Because "A 'welcome' page has been proven to be an invitation 
+  to come your system, thus making it legal to hack into your box." 
+  added a -private arg to display an "Unauthorized access is prohibited" 
+  line at the bottom of the ANSI screen. 
+  [ Thanks to Zot O'Connor ]
+
+- Put a Note about this in README, INSTALL and man file.
+
+- Some changes to the help screen.
+
+- Little fixe to the xmas screen.
+
+
+v3.01 03-MAY-99
+---------------
+
+- Corrected Slackware installation instructions
+  [ Thanks to Elisa from Verona ]
+
+- Based on a patch contributed by Barthel <kknerrsr@ptdprolog.net>:  
+  o Fixed some things that were broken with the introduction of the
+    last ANSI screen ( principally the -xmasauto arg)
+  o Added a new -cpu"name" arg to specify an alternate CPU name.
+  o Corrected "Logging on" by "Login on"
+  o Added instructions about the -xmasauto arg in
+    the INSTALL file.         
+
+
+v3.00 01-APR-99
+---------------
+
+- *** A NEW ANSI SCREEN ***
+  Enable it with -scr2 argument, and enjoy :)
+
+- Some screenshots are now included in the distrib.
+
+- This version is *supposed* to be stable ;)
+  No more call it a Beta.
+
+
+v2.04 24-FEB-99
+---------------
+
+- Added installation information for SUSE 6.00 systems
+  in man page as well as in the INSTALL file. 
+  [Contributed by Ronny Ziegler]
+
+
+v2.03 10-JAN-99
+---------------
+
+- Updated all docs and code copyrigth to
+  point on www.littleigloo.org and my
+  email address to jm@littleigloo.org 
+
+- Sources as binairies distrib are now available
+  as tar.bz2 as well as tar.gz
+
+
+v2.02 03-JAN-99
+---------------
+
+- Added installation information for SUSE systems
+  in man page as well as in the INSTALL file. 
+  [Thanks to Ronny Ziegler]
+
+- Little changes [ suggested by Christoph Berg ]
+  to make Welcome2L compile on Alpha systems.
+  Support of Alpha architecture with TGA board
+  is now mentionned in Welcome2L description
+  text.      
+
+
+v2.01 07-DEC-98  *XMAS SPECIAL EDITION*(b)
+------------------------------------------
+
+- Forgot in the last release to erase my hostname
+  from the ANSI screen template. As this can be annoying
+  if your hostname is less than 11 characters lenght, 
+  release this one. [ Thanks to  Ross Younger ]	
+
+- Added a patch from the same Ross to automatically
+  revert to the default screen outside of Jan/Dec. 
+  (enable it with -xmasauto)	
+
+- Added snow in the background of the Xmas ANSI screen
+  to  make it more ... "xmas"
+
+
+v2.00 01-DEC-98  *XMAS SPECIAL EDITION*
+---------------------------------------
+
+- Included a new ansi screen for xmas
+  Type "Welcome2L -xmas" and enjoy!
+  
+- Added support of blinking ANSI characters
+  (heavily used in xmas screen)
+  
+- Make more easy to include additional
+  ANSI screens. So, don't hesitate
+  to send me yours ;)
+
+- Corrected "Welcome on" by "Welcome to"
+  Let's say that whas a typo...     
+ 
+- BTW, I wish you a MERRY CHRISTMAS.
+                     
+
+v1.02 12-NOV-98
+---------------
+
+- RPM (RedHat packages) are now available on :
+  http://www.chez.com/littleigloo
+        
+- Corrected "loging on" by "logging on".
+
+- Added minimal support for screen > 80 cols
+  ( you will not get a true 132 cols ansi
+  screen, but a 80 cols ansi that will be
+  correctly displayed )     
+
+- Added usage information when invoked
+  with -help (or --help).
+
+- Added installation information for DEBIAN
+  and SLACKWARE systems. 
+  (contributed from users)   
+
+- A man page is now available.
+
+- Little code clean-up.
+
+- Some changes made in the Makefile.
+
+- As W2L seems to work as expected,
+  this release got the BETA status.  
+
+
+v1.01 16-OCT-98
+---------------
+
+- Added a -getty switch. You are encouraged
+  to use it when invoking W2L in rc.local
+  Will give you more accurate information.
+  [Thanks to Donald (Don) Molnar <molnar@gmx.de>
+
+- When invoked with -help W2L will display
+  a summary of color numbers. Useful for
+  some argument like -lcolxx (see below)
+
+- Added the -lcol argument to set the prompt
+  color. Usage is -lcolxx where xx is the color 
+  number. In example, -lcol14 will  set
+  the login prompt color to yellow.
+  
+- Nodemane longer than 15 characters are now
+  truncated to their first part (i. e.
+  littleigloo.big.organization will be truncated to
+  littleigloo ) 
+  [Thanks to Dan Morrison <dmorriso@buffalo.edu>]  
+     
+
+
+v1.00 3-OCT-98
+--------------
+  First beta release.
+  So, no changes. 
+
