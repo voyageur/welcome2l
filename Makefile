@@ -1,19 +1,18 @@
 SHELL=/bin/sh
-CC = gcc
 CFLAGS += -Wall -fno-strength-reduce #-pedantic
 DESTDIR = /usr
 INSTALL_BINPATH = $(DESTDIR)/bin
 INSTALL_MANPATH = $(DESTDIR)/man
 PROGNAME = Welcome2L
 PROGNAME_LNK = welcome2l
-VERSION = 3.04
-VERSION_DATE = 1999
+VERSION = 3.05
+VERSION_DATE = 2017
 RPM_RELEASE = 1
 RPM_BUILDPATH = /usr/src/redhat
 #RPM_ICONNAME = 
 
 $(PROGNAME): main.o ansi.o 	     
-	$(CC) $(LDFLAGS) -v *.o -o $(PROGNAME)
+	$(CC) $(LDFLAGS) *.o -o $(PROGNAME)
 
 install : 
 	/usr/bin/install -m 755 $(PROGNAME) $(INSTALL_BINPATH)
