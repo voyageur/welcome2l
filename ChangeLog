@@ -6,7 +6,7 @@ v3.05 20-APR-17
 
 - Consolidate all patches since last original version
 
-- Clean man page
+- Rework options parsing, clean and update man page
 
 v3.04 28-JUN-99
 ---------------

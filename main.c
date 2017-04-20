@@ -88,7 +88,7 @@ char XMAS_SCREEN = 3;
  * changes color of  'Welcome to:', 'CPU:', etc. texts.
  * It works only with screen 1 or screen 2.
  */
-static void change_text_colors (unsigned char *ansi_screen,
+static void change_text_colors(unsigned char *ansi_screen,
     int ansi_screen_length, char color) {
   register int i, f;
   int tab_val[4] = {1609, 2409, 2569, 2729};
@@ -108,7 +108,7 @@ static void change_text_colors (unsigned char *ansi_screen,
  * get memory info from /proc/meminfo, as stat-ing /proc/kcore
  * does not always give correct results (see Debian bug#230546)
  */
-static void get_memory_info(void) {
+static void get_memory_info(){
   FILE * fp;
   char * line = NULL;
   size_t len = 0;
@@ -147,7 +147,7 @@ static void get_memory_info(void) {
   snprintf (MEMORY, sizeof(MEMORY), "%Ld %s", memsize, units);
 }
 
-static void draw_ansi_screen (unsigned char *ansi_screen,
+static void draw_ansi_screen(unsigned char *ansi_screen,
     int ansi_screen_length, int ansi_screen_width) {
   register int f;
   int this_width = ansi_screen_width << 1;
@@ -162,7 +162,7 @@ static void draw_ansi_screen (unsigned char *ansi_screen,
   }
 }
 
-static void draw_welcome_screen (unsigned char *screen,
+static void draw_welcome_screen(unsigned char *screen,
     int screen_length, int screen_width,
     char color1, char color2, char color3,
     char xnode, char ynode, char xtime, char ytime,
@@ -247,7 +247,7 @@ static void draw_welcome_screen (unsigned char *screen,
 
 }
 
-static void draw_this_screen (void) {
+static void draw_this_screen() {
   int last_line;
 
   switch (THIS_SCREEN)
@@ -344,7 +344,7 @@ static void draw_this_screen (void) {
   printf ("%s", WSCREEN);
 }
 
-static void prog_infos () {
+static void prog_infos() {
   printf ("\033[H\033[J");
   printf ("%s%s V%s By %s\n%sCopyright (c)%s %s\n%sCompiled on %s %s by %s@%s (%s)\n%s\n",
       "\033[1;33m", PROG_NAME, PROG_VERSION, PROG_AUTHOR,
@@ -353,19 +353,27 @@ static void prog_infos () {
       "\033[0;37mDistributed under the terms of the GNU General Public License.\033[m\n");
 }
 
-static void help_usage (void) {
-  prog_infos ();
-  printf ("ERROR: Unrecognized Argument.\nType : %s -help for usage information.\n\n", PROG_NAME);
+static void help_usage(char * param) {
+  prog_infos();
+  printf("ERROR: Unrecognized argument '%s'.\n", param);
+  printf("Type : %s -help for usage information.\n\n", PROG_NAME);
   exit (1);
 }
 
-static void print_option (char *this_option,
+static void help_missing_arg(char * param) {
+  prog_infos();
+  printf("ERROR: Missing paramater for argument '%s'.\n", param);
+  printf("Type : %s -help for usage information.\n\n", PROG_NAME);
+  exit (1);
+}
+
+static void print_option(char *this_option,
     char *this_option_arg, char *this_message) {
-  printf ("\033[0;36m  \033[1m-%s\033[1;37m%s\033[0;36m : %s\n",
+  printf ("\033[0;36m  \033[1m-%s\033[1;37m %s\033[0;36m : %s\n",
       this_option, this_option_arg, this_message);
 }
 
-static void usage (void) {
+static void usage() {
   prog_infos ();
   printf ("\033[1;36m");
 
@@ -382,106 +390,97 @@ static void usage (void) {
   print_option ("notime", "", "Do not display current time");
   print_option ("noblink", "", "Turn blinking off");
   printf ("\n\033[1;36mEXAMPLE:\n\033[0;36m");
-  printf ("  ./Welcome2L -getty -msg\"Gentoo Linux\" -lcol14");
+  printf ("  ./Welcome2L -getty -msg \"Gentoo Linux\" -lcol 14");
 
   printf ("\033[m\n\n");
   exit (0);
 }
 
-int main (int argc, char *argv[]) {
-  /*  struct stat stat_buf; */
+int main(int argc, char *argv[]) {
   time_t timep;
   struct tm *timeptr;
-  char SEE_ARG = FALSE;
+  int argi;
 
-  WMESG[0] = 0;
+  WMESG[0] = '\0';
 
-  if (argc > 1)
-    SEE_ARG = NOTSEEN;
-  while (argc--)
+  for (argi=1; argi < argc; argi++)
   {
-    if (strstr (argv[argc], "-help"))
-      usage ();
-
-    if (strstr (argv[argc], "-msg"))
-    {
-      strncpy (WMESG, argv[argc] + 4, sizeof (WMESG));
-      SEE_ARG = TRUE;
+    if (strstr (argv[argi], "-help")) {
+      usage();
     }
 
-    if (strstr (argv[argc], "-lcol"))
-    {
-      last_color = atoi (argv[argc] + 5);
+    else if (strstr (argv[argi], "-msg")) {
+      if (++argi == argc) {
+        help_missing_arg("-msg");
+      }
+      strncpy (WMESG, argv[argi], sizeof (WMESG));
+    }
+
+    else if (strstr (argv[argi], "-lcol")) {
+      if (++argi == argc) {
+        help_missing_arg("-lcol");
+      }
+      last_color = atoi(argv[argi]);
       if (last_color > 15)
         last_color = 15;
-      SEE_ARG = TRUE;
     }
 
-    if (strstr (argv[argc], "-nolf"))
-    {
+    else if (strstr (argv[argi], "-nolf")) {
       WANT_NEWLINE = FALSE;
-      SEE_ARG = TRUE;
     }
 
-    if (strstr (argv[argc], "-getty"))
-    {
+    else if (strstr (argv[argi], "-getty")) {
       want_getty_infos = 1;
-      SEE_ARG = TRUE;
     }
 
-    if (strstr (argv[argc], "-gettps"))
-    {
+    else if (strstr (argv[argi], "-gettps")) {
       want_getty_infos = 2;
-      SEE_ARG = TRUE;
     }
 
-    if (strstr (argv[argc], "-scr"))
-    {
-      char *ptr = (char *) argv[argc] + 4;
+    else if (strstr (argv[argi], "-scrrand")) {
       srand (time (0));
-      THIS_SCREEN = isdigit (*ptr) ? atoi (ptr) : (1 + (int) (MAX_RAND_SCREEN * rand () / (RAND_MAX + 1.0)));
-      SEE_ARG = TRUE;
+      THIS_SCREEN = (1 + (int) (MAX_RAND_SCREEN * rand () / (RAND_MAX + 1.0)));
     }
 
-    if (strstr (argv[argc], "-xmasauto"))
-    {
+    else if (strstr (argv[argi], "-scr")) {
+      if (++argi == argc) {
+        help_missing_arg("-scr");
+      }
+      THIS_SCREEN = atoi(argv[argi]);
+    }
+
+    else if (strstr (argv[argi], "-xmasauto")) {
       XMAS_AUTO = TRUE;
-      SEE_ARG = TRUE;
     }
 
-    if (strstr (argv[argc], "-xmas") && !XMAS_AUTO)
-    {
-      /* printf ("here\n"); */
+    else if (strstr (argv[argi], "-xmas")) {
       THIS_SCREEN = XMAS_SCREEN;
-      SEE_ARG = TRUE;
     }
 
-    if (strstr (argv[argc], "-cpu"))
-    {
-      strncpy (CPUID, argv[argc] + 4, sizeof (CPUID));
+    else if (strstr (argv[argi], "-cpu")) {
+      if (++argi == argc) {
+        help_missing_arg("-cpu");
+      }
+      strncpy (CPUID, argv[argi], sizeof (CPUID));
       CPU_INFO = TRUE;
-      SEE_ARG = TRUE;
     }
 
-    if (strstr (argv[argc], "-private"))
-    {
+    else if (strstr (argv[argi], "-private")) {
       IS_WELCOME = FALSE;
-      SEE_ARG = TRUE;
     }
 
-    if (strstr (argv[argc], "-notime"))
-    {
+    else if (strstr (argv[argi], "-notime")) {
       NO_TIME = TRUE;
-      SEE_ARG = TRUE;
     }
-    if (strstr (argv[argc], "-noblink"))
-    {
+    
+    else if (strstr (argv[argi], "-noblink")) {
       NO_BLINK = TRUE;
-      SEE_ARG = TRUE;
+    }
+    
+    else {
+      help_usage(argv[argi]);
     }
   }
-  if (SEE_ARG == NOTSEEN)
-    help_usage ();
 
   setlocale (LC_ALL, "");
 
@@ -504,10 +503,6 @@ int main (int argc, char *argv[]) {
   if ((XMAS_AUTO) && ((timeptr->tm_mon == 0) || (timeptr->tm_mon == 11)))
     THIS_SCREEN = XMAS_SCREEN; /* Ross Younger's patch (revised) - no Xmas decorations outside of Jan/Dec. (enable it with -xmasauto) */
 
-  /*
-     stat ("/proc/kcore", &stat_buf);
-     sprintf (MEMORY, "%ld kB", stat_buf.st_size >> 10);
-     */
   get_memory_info();
 
   draw_this_screen ();
