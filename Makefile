@@ -7,9 +7,6 @@ PROGNAME = Welcome2L
 PROGNAME_LNK = welcome2l
 VERSION = 3.05
 VERSION_DATE = 2017
-RPM_RELEASE = 1
-RPM_BUILDPATH = /usr/src/redhat
-#RPM_ICONNAME = 
 
 $(PROGNAME): main.o ansi.o 	     
 	$(CC) $(LDFLAGS) *.o -o $(PROGNAME)
@@ -51,62 +48,5 @@ version.h : FORCE
 
 FORCE:	
 
-clean: dist_clean
+clean:
 	rm -f $(PROGNAME) *.o version.h
-
-dist_clean:
-	rm -f *~ core build/* 
-
-
-###### ONLY FOR BUILDING DISTRIBUTION USAGE ##########
-
-doc:
-	@if test -x /usr/bin/pod2man; then \
-	    touch distrib/$(PROGNAME).pod;\
-	    pod2man distrib/$(PROGNAME).pod \
-		--center="$(PROGNAME) User's Manual" \
-		--release="$(PROGNAME) Version $(VERSION)" \
-		> $(PROGNAME).1; \
-	fi;
-
-dist: $(PROGNAME) doc dist_clean
-	rm -f build/*.tgz
-	mkdir $(PROGNAME)-$(VERSION)
-	mkdir $(PROGNAME)-$(VERSION)/ansi
-	mkdir $(PROGNAME)-$(VERSION)/distrib
-	mkdir $(PROGNAME)-$(VERSION)/screenshots
-	cp screenshots/*.* $(PROGNAME)-$(VERSION)/screenshots
-	cp ansi/*.* $(PROGNAME)-$(VERSION)/ansi
-	cp distrib/*.* $(PROGNAME)-$(VERSION)/distrib
-	cp *.c *.h *.lsm *.1\
-	   AUTHORS BUGS ChangeLog COPYING INSTALL NEWS \
-	   README TODO THANKS Makefile $(PROGNAME)-$(VERSION)
-	tar cvf $(PROGNAME)-$(VERSION).src.tar $(PROGNAME)-$(VERSION)
-	bzip2 -k $(PROGNAME)-$(VERSION).src.tar 
-	mv $(PROGNAME)-$(VERSION).src.tar.bz2 build/
-	gzip $(PROGNAME)-$(VERSION).src.tar 
-	mv $(PROGNAME)-$(VERSION).src.tar.gz build/
-	rm -f $(PROGNAME)-$(VERSION)/*.c $(PROGNAME)-$(VERSION)/*.h
-	rm -Rf $(PROGNAME)-$(VERSION)/ansi
-	cp $(PROGNAME) $(PROGNAME)-$(VERSION)/$(PROGNAME)
-	tar cvf $(PROGNAME)-$(VERSION).bin.tar $(PROGNAME)-$(VERSION)
-	bzip2 -k $(PROGNAME)-$(VERSION).bin.tar
-	mv $(PROGNAME)-$(VERSION).bin.tar.bz2 build/
-	gzip -9 $(PROGNAME)-$(VERSION).bin.tar
-	mv $(PROGNAME)-$(VERSION).bin.tar.gz build/
-	cp *.lsm build/
-	rm -Rf $(PROGNAME)-$(VERSION)
-	du -k build/*.*
-
-rpm: dist 
-	sed -e s,THIS_VERSION,$(VERSION), \
-	    -e s,THIS_RPM_RELEASE,$(RPM_RELEASE), \
-	    -e s,THIS_DATA_FILE,$(DATA_FILE), \
-	    -e s,THIS_DATA_DIR,$(DATA_DIR), \
-	    distrib/$(PROGNAME).spec > $(RPM_BUILDPATH)/SPECS/$(PROGNAME)-$(VERSION).spec
-	cp -f build/$(PROGNAME)-$(VERSION).src.tar.gz $(RPM_BUILDPATH)/SOURCES
-	#cp -f distrib/$(RPM_ICONNAME) $(RPM_BUILDPATH)/SOURCES
-	rpm -ba --clean $(RPM_BUILDPATH)/SPECS/$(PROGNAME)-$(VERSION).spec
-	mv $(RPM_BUILDPATH)/RPMS/i386/$(PROGNAME)-$(VERSION)-$(RPM_RELEASE)* build/
-	mv $(RPM_BUILDPATH)/SRPMS/$(PROGNAME)-$(VERSION)-$(RPM_RELEASE)* build/      
-    
