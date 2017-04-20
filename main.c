@@ -414,7 +414,7 @@ usage (void)
   printf ("\033[0;37m            COLOR NUMBERS ARE: %s\n", "\033[0;34m1 \033[32m2 \033[36m3 \033[31m4 \033[35m5 \033[33m6 \033[37m7 \033[1;30m8 \033[34m9 \033[32m10 \033[36m11 \033[31m12 \033[35m13 \033[33m14 \033[37m15");
   print_option ("cpu", "\"string\"", "Specifies an alternate CPU description");
   print_option ("private", "", "Add an \"Unauthorized access is PROHIBITED\" line");
-  print_option ("notime", "", "Do not dispaly current time");
+  print_option ("notime", "", "Do not display current time");
   print_option ("noblink", "", "Turn blinking off");
   printf ("\n\033[1;36mEXAMPLE:\n\033[0;36m");
   printf ("  ./Welcome2L -getty -msg\"Gentoo Linux\" -lcol14");
