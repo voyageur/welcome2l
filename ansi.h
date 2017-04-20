@@ -32,3 +32,5 @@ void ANSI_do_char (unsigned char c);
 void ANSI_pos (int x, int y);
 void ANSI_save_pos (void);
 void ANSI_restore_pos (void);
+
+/* vim: set tabstop=2 softtabstop=0 shiftwidth=2 expandtab: */

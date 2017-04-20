@@ -18,35 +18,23 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
-
 #include <stdio.h>
 #include <string.h>
-
 
 char WSCREEN[10000];
 static int old_bg, old_fg, old_attr;
 
-
-
-void
-ANSI_screen_init (void)
-{
+void ANSI_screen_init (void) {
   strcpy (WSCREEN, "\033[m\033]R\033]R\033[H\033[J\033[0;10;1;11m");
   old_bg = old_fg = old_attr = -1;
 }
 
 
-void
-ANSI_screen_close (void)
-{
+void ANSI_screen_close (void) {
   strcat (WSCREEN, "\033[10m\033[m");
 }
 
-
-int
-ANSI_col_convert (int col)
-{
+int ANSI_col_convert (int col) {
   col = col & 7;
   switch (col)
     {
@@ -66,10 +54,7 @@ ANSI_col_convert (int col)
   return col;
 }
 
-
-void
-ANSI_do_color (unsigned char col)
-{
+void ANSI_do_color (unsigned char col) {
   extern char NO_BLINK;
   int this_bg, this_fg, this_attr;
   char buf[25];
@@ -94,36 +79,36 @@ ANSI_do_color (unsigned char col)
   if (this_attr == old_attr)
     {
       if ((this_bg != old_bg) && (this_fg != old_fg))
-	sprintf (buf, "\033[3%i;4%im", this_fg, this_bg);
+  sprintf (buf, "\033[3%i;4%im", this_fg, this_bg);
       else
-	{
-	  if (this_bg != old_bg)
-	    sprintf (buf, "\033[4%im", this_bg);
-	  else
-	    sprintf (buf, "\033[3%im", this_fg);
-	}
+  {
+    if (this_bg != old_bg)
+      sprintf (buf, "\033[4%im", this_bg);
+    else
+      sprintf (buf, "\033[3%im", this_fg);
+  }
     }
   else
     {
       if (this_attr)
-	{
-	  if (old_attr != 5)
-	    sprintf (buf, "\033[%i", this_attr);
-	  else
-	    sprintf (buf, "\033[0;1");
+  {
+    if (old_attr != 5)
+      sprintf (buf, "\033[%i", this_attr);
+    else
+      sprintf (buf, "\033[0;1");
 
-	  if (this_attr == 5)
-	    if ((col & 15) > 7)
-	      sprintf (buf, "\033[1;5");
+    if (this_attr == 5)
+      if ((col & 15) > 7)
+        sprintf (buf, "\033[1;5");
 
-	  if (this_fg != old_fg)
-	    sprintf (buf + strlen(buf), ";3%i", this_fg);
-	  if (this_bg != old_bg)
-	    sprintf (buf + strlen(buf), ";4%i", this_bg);
-	  strcat (buf, "m");
-	}
+    if (this_fg != old_fg)
+      sprintf (buf + strlen(buf), ";3%i", this_fg);
+    if (this_bg != old_bg)
+      sprintf (buf + strlen(buf), ";4%i", this_bg);
+    strcat (buf, "m");
+  }
       else
-	sprintf (buf, "\033[0;3%i;4%im", this_fg, this_bg);
+  sprintf (buf, "\033[0;3%i;4%im", this_fg, this_bg);
     }
 
   strcat (WSCREEN, buf);
@@ -133,10 +118,7 @@ ANSI_do_color (unsigned char col)
   old_fg = this_fg;
 }
 
-
-void
-ANSI_do_char (unsigned char c)
-{
+void ANSI_do_char (unsigned char c) {
   switch (c)
     {
     case 22:
@@ -149,25 +131,17 @@ ANSI_do_char (unsigned char c)
   strcat (WSCREEN, buf);
 }
 
-
-void
-ANSI_pos (int x, int y)
-{
+void ANSI_pos (int x, int y) {
   sprintf (WSCREEN + strlen(WSCREEN), "\033[%i;%iH", y, x);
 }
 
-
-void
-ANSI_save_pos (void)
-{
+void ANSI_save_pos (void) {
   strcat (WSCREEN, "\033[s");
 }
 
-
-void
-ANSI_restore_pos (void)
-{
+void ANSI_restore_pos (void) {
   strcat (WSCREEN, "\033[u");
 }
 
 /* EOF */
+/* vim: set tabstop=2 softtabstop=0 shiftwidth=2 expandtab: */
