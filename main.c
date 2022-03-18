@@ -78,7 +78,6 @@ static char XMAS_AUTO = FALSE;
 static char IS_WELCOME = TRUE;
 static char NO_TIME = FALSE;
 char NO_BLINK = FALSE;
-char WSCREEN[10000];
 char XMAS_SCREEN = 3;
 #define MAX_RAND_SCREEN 4.0
 
