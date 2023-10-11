@@ -1,0 +1,11 @@
+#!/sbin/openrc-run
+
+depend() {
+	need local
+}
+
+start() {
+	ebegin "Starting Welcome2L"
+	/usr/bin/Welcome2L -xmasauto -getty -msg "Gentoo Linux" > /etc/issue
+	eend $result
+}

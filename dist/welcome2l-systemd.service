@@ -1,0 +1,13 @@
+[Unit]
+Description=Linux ANSI boot logo
+Documentation=man:Welcome2L
+After=local-fs.target
+Wants=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/Welcome2L -xmasauto -getty -msg "Gentoo Linux" > /etc/issue
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target
