@@ -6,7 +6,8 @@ Wants=local-fs.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/Welcome2L -xmasauto -getty -msg "Gentoo Linux" > /etc/issue
+ExecStart=/usr/bin/Welcome2L -xmasauto -getty -msg "Gentoo Linux"
+StandardOutput=file:/etc/issue
 RemainAfterExit=true
 
 [Install]
